@@ -1,0 +1,13 @@
+#littleBox{
+    
+    background-color: lightgreen;
+    height: 100px;
+    width: 100px;
+}
+
+#bigBox {
+    
+    background-color: lightblue;
+    height: 300px;
+    width: 300px;
+}
