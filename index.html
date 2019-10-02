@@ -1,27 +1,96 @@
-<!doctype HTML>
+<!DOCTYPE HTML>
 <html>
     <head>
-        <title>jQuery</title>
+        <title>Code Player</title>
+        
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
         
         <!-- Style Sheets -->
         <script type="text/javascript" src="jquery.min.js"></script>
         <script src="jquery-ui-1.12.1/jquery-ui.js"></script>
+        
 
         <!-- Java Scripts -->
         <link rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.css">
-        <link rel="stylesheet" type="text/css" href="jquery.css">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
     
     </head>
     
     <body>
         
-
+        <div id="topBar">
+            
+            <div id="logo">Code Player</div>
+            
+            <div id="buttonContainer">
+                
+                <div class="toggleButton active" id="html">HTML</div>
+                
+                <div class="toggleButton" id="css">CSS</div>
+                
+                <div class="toggleButton" id="javascript">JavaScript</div>
+                
+                <div class="toggleButton active" id="output">Output</div>
+                
+            </div>
+            
+        </div>
         
-        <!-- Inline Javascripts-->
-        <script type="text/javascript">
+        <div id="panelArea">
+            
+            <textarea id="htmlPanel" class="panel"><p>Hello World!</p></textarea>
+            
+            <textarea id="cssPanel" class="panel hidden">p { color : green; }</textarea>
+            
+            <textarea id="javascriptPanel" class="panel hidden">alert("Hello World!"</textarea>
+            
+            <iframe id="outputPanel" class="panel"></iframe>
+        
+        </div>
+        
+        
+        <script>
+            
+            function updateContent() {
+                
+                $("iframe").contents().find("html").html("<html><head><style type='text/css'>" + $("#cssPanel").val() + "</style></head><body>" + $("#htmlPanel").val() + "</body></html>");
+            };
+            
+            $(".toggleButton").hover(function() {
+               $(this).addClass('hover'); 
+            }, function() {
+                $(this).removeClass('hover');
+            });
+            
+            $(".toggleButton").click(function() {
+                $(this).toggleClass('active');
+                $(this).removeClass('hover');
+                
+                var panelID = $(this).attr("id") + "Panel";
+                
+                $("#" + panelID).toggleClass('hidden');
+                
+                var activePanels = 4 - $('.hidden').length;
+                
+                $(".panel").width(($(window).width() / activePanels) - 20);
+            });
+            
+            
+            $(".panel").height($(window).height() - $("#topBar").height() - 35);
+            
+            updateContent();
+            
+            $("textarea").on('change keyup paste load', function() {
+                
+                updateContent();
+            })
+            
         
         </script>
-    
+                
+
     </body>
 
 
